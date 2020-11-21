@@ -1,0 +1,26 @@
+{
+  "name": "mf-nextjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "cd app1/ && yarn && cd ../app2 && yarn && cd ..",
+    "run-app1": "cd app1/ && yarn dev",
+    "run-app2": "cd app2/ && yarn dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hamatoyogi/next-mf-blogpost.git"
+  },
+  "keywords": [
+    "nextjs",
+    "module-federation"
+  ],
+  "author": "Yoav Ganbar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hamatoyogi/next-mf-blogpost/issues"
+  },
+  "homepage": "https://github.com/hamatoyogi/next-mf-blogpost#readme"
+}
