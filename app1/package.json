@@ -1,0 +1,19 @@
+{
+  "name": "app1",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@module-federation/nextjs-mf": "^0.0.2",
+    "next": "10.0.2",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  },
+  "resolutions": {
+    "webpack": "5.1.3"
+  }
+}
