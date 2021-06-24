@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "cd app1/ && yarn && cd ../app2 && yarn && cd ..",
+    "prepare": "cd app1/ && yarn && cd ../app2 && yarn && cd ../appvue && yarn && cd ..",
     "run-app1": "cd app1/ && yarn dev",
-    "run-app2": "cd app2/ && yarn dev"
+    "run-app2": "cd app2/ && yarn dev",
+    "run-appvue": "cd appvue/ && yarn serve"
   },
   "repository": {
     "type": "git",

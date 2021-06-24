@@ -9,9 +9,11 @@ import dynamic from "next/dynamic";
 const Nav = dynamic(() => import("app1/nav"), {
   ssr: false,
 });
+
 export default function Home() {
   const [add, setAdd] = React.useState(undefined);
   const [multiplyByTwo, setMultiplyByTwo] = React.useState(undefined);
+  const vueAppRef = React.useRef(null);
 
   React.useEffect(() => {
     async function loadDynamicImports() {
@@ -26,6 +28,25 @@ export default function Home() {
       loadDynamicImports();
     }
   }, []);
+
+  React.useEffect(() => {
+    async function loadVueApp() {
+      const vue  = (await import('appvue/appVue'));
+      const { createApp, h } = vue;
+      const HelloText = (await import('appvue/HelloText')).default
+      createApp({
+        name: 'VueApp',
+        render() {
+          return h(HelloText, { color: 'red' })
+        }
+      }).mount(vueAppRef.current)
+    }
+
+    if (typeof window !== 'undefined') {
+      loadVueApp()
+    }
+  }, [])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -43,56 +64,8 @@ export default function Home() {
           {`Multiplying 5 by 2  ==>`}
           {multiplyByTwo ? multiplyByTwo(5) : null}
         </h2>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <div ref={vueAppRef} />
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
   );
 }

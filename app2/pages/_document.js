@@ -1,22 +1,15 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { patchSharing } from '@module-federation/nextjs-mf';
+import Document, { Html, Head, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
-  }
-
   render() {
     return (
       <Html>
-        {patchSharing()}
-        {/* This is where we're actually allowing app 2 to get the code from app1 */}
-        <script src="http://localhost:3000/_next/static/remoteEntryMerged.js" />
         <Head />
         <body>
           <Main />
           <NextScript />
+          <script data-webpack="app1" src="http://localhost:3000/_next/static/chunks/remoteEntry.js" />
+          <script data-webpack="appvue" src="http://localhost:8080/remoteEntry.js" />
         </body>
       </Html>
     );
